@@ -1,2 +1,2 @@
-speedy-speed-test
+Speedy Speed Test
 =================
