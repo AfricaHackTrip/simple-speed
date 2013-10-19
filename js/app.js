@@ -18,69 +18,72 @@ var App = {
     down: [],
     up: []
   },
-  maxDownloads: 1,
-  testfileSize: 5000, // in Bit
 
   averageSpeedDown: function() {
+    //TODO move to progress
     var averageDownInSeconds = this.averageDown / 1000;
 
     var kbps = this.testfileSize / averageDownInSeconds / 1024;
     return kbps;
   },
 
+  download: {
+    lastBytesLoaded: 0,
+    lastTimestamp: null
+  },
+
+  downloadProgress: function(ev) {
+    console.log(ev.loaded);
+    console.log(ev.timestamp);
+
+    var bytesLoaded = ev.loaded;
+    var timestamp = ev.timestamp;
+
+    if (App.download.lastTimestamp !== null) {
+      var size = bytesLoaded - App.download.lastBytesLoaded;
+      var time = timestamp - App.download.lastTimestamp;
+
+      console.log('size: ' + size + ' - time: ' + time);
+      // App.measurements.down.push(kbps);
+    }
+
+    App.download.lastBytesLoaded = bytesLoaded;
+    App.download.lastTimestamp = timestamp;
+
+    // App.ui.updateMeasurements();
+
+    // App.setAverageDown();
+  },
+
   startSpeedtest: function() {
     App.ui.hideStartButton();
 
-    App.downloadFiles();
-  },
-
-  downloadFiles: function() {
-    var timer = 0;
-    var startTimer = function() {
-      setInterval(function(){
-        timer += 10;
-      }, 10);
-    };
-
-    var printProgress = function(ev) {
-      console.log(ev);
-    };
-
     $.ajax({
       type: 'GET',
-      url: 'https://storage.5apps.com/basti/public/shares/131019-1308-testfile.txt',
-      timeout: 20000,
+      url: '/testfile.txt',
+      timeout: 100000,
       cache: false,
       beforeSend: function(xhr, settings) {
-        startTimer();
-        xhr.addEventListener('progress', printProgress, false);
+        xhr.addEventListener('progress', App.downloadProgress, false);
       },
       success: function(data, status, xhr){
-        var downloadTime = timer;
-
-        App.measurements.down.push(timer);
-        App.ui.updateMeasurements();
-
-        App.setAverageDown(timer);
-        // App.ui.updateAverageDown(App.averageDown);
+        console.log('testfile downloaded completely');
       },
       error: function(xhr, errorType, error) {
         console.log('ERROR');
         console.log(errorType);
         console.log(error);
-        // show error, nullify timer
+        // show error
       },
       complete: function() {
-        if (App.measurements.down.length < App.maxDownloads) {
-          App.downloadFiles();
-        }
+        App.ui.showStartButton();
       }
     });
   },
 
   setAverageDown: function(milliseconds) {
     App.averageDown = App.measurements.down.avg();
-    App.ui.updateAverageDown( App.averageSpeedDown() + ' Kb/s' );
+    App.ui.updateAverageDown( App.averageDown + ' Kb/s' );
   },
 
   // UI
@@ -96,10 +99,6 @@ var App = {
 
     showStartButton: function() {
       $('button#start').show();
-    },
-
-    updateTimer: function(time) {
-      $('#timer').html( time.toString() + ' milliseconds' );
     },
 
     updateMeasurements: function() {
