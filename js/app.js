@@ -33,11 +33,11 @@ var App = {
       var timestampDifference = timestamp - App.download.lastTimestamp;
       var timeInSeconds = Math.round(timestampDifference/1000)/1000;
       var kbps = chunkSizeInBits / timeInSeconds / 1024;
-      kbps = Math.round(kbps);
+      var speed = parseInt(kbps);
 
-      App.measurements.down.push(kbps);
+      App.measurements.down.push(speed);
 
-      App.setAverageDown(kbps);
+      App.setAverageDown(speed);
     }
 
     App.download.lastBytesLoaded = bytesLoaded;
@@ -71,7 +71,7 @@ var App = {
   },
 
   setAverageDown: function(milliseconds) {
-    App.averageDown = App.measurements.down.avg();
+    App.averageDown = parseInt(App.measurements.down.avg());
     App.ui.updateAverageDown( App.averageDown + ' Kb/s' );
   },
 
@@ -79,7 +79,7 @@ var App = {
 
   ui: {
     updateAverageDown: function(value) {
-      $('#down').html( value.toString() );
+      $('#left #top').html( value.toString() );
     },
 
     hideStartButton: function() {

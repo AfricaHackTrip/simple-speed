@@ -2,6 +2,7 @@ body{
 	font-family:Helvetica;
 	color:#fff;
 	background-color:#f9f9f9;
+  text-align: center;
 }
 
 #wrapper
@@ -58,7 +59,7 @@ body{
 	text-align:center;
 }
 
-#button
+button
 {
 	background-color:#e6eaeb;
 	font-family:Verdana;
