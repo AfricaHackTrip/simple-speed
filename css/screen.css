@@ -80,6 +80,7 @@ body{
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 
 #error
 {
@@ -93,4 +94,8 @@ body{
 	font-size:36px;
 	text-align:center;
 	padding-top:5px; 
+=======
+main {
+  display: block;
+>>>>>>> cd6c4973be2be3e9b9327b798170b143ee223f33
 }
