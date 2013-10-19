@@ -14,18 +14,27 @@ var App = {
 
   averageDown: 0,
   averageUp: 0,
-  measurements: [],
-  maxDownloads: 50,
+  measurements: {
+    down: [],
+    up: []
+  },
+  maxDownloads: 1,
+  testfileSize: 5000, // in Bit
+
+  averageSpeedDown: function() {
+    var averageDownInSeconds = this.averageDown / 1000;
+
+    var kbps = this.testfileSize / averageDownInSeconds / 1024;
+    return kbps;
+  },
 
   startSpeedtest: function() {
     App.ui.hideStartButton();
 
-    App.downloadFile();
-
-    App.finishSpeedTest();
+    App.downloadFiles();
   },
 
-  downloadFile: function() {
+  downloadFiles: function() {
     var timer = 0;
     var startTimer = function() {
       setInterval(function(){
@@ -33,40 +42,45 @@ var App = {
       }, 10);
     };
 
+    var printProgress = function(ev) {
+      console.log(ev);
+    };
+
     $.ajax({
       type: 'GET',
-      url: 'https://storage.5apps.com/basti/public/sharedy/images/130213-210916-Screen%20Shot%202013-02-13%20at%209.08.16%20PM.png',
+      url: 'https://storage.5apps.com/basti/public/shares/131019-1308-testfile.txt',
       timeout: 20000,
       cache: false,
       beforeSend: function(xhr, settings) {
         startTimer();
+        xhr.addEventListener('progress', printProgress, false);
       },
       success: function(data, status, xhr){
         var downloadTime = timer;
-        App.measurements.push(timer);
 
+        App.measurements.down.push(timer);
         App.ui.updateMeasurements();
-        App.ui.updateAverageDown( App.measurements.avg() );
 
-        if (App.measurements.length < App.maxDownloads) {
-          App.downloadFile();
-        }
+        App.setAverageDown(timer);
+        // App.ui.updateAverageDown(App.averageDown);
       },
       error: function(xhr, errorType, error) {
         console.log('ERROR');
         console.log(errorType);
         console.log(error);
         // show error, nullify timer
+      },
+      complete: function() {
+        if (App.measurements.down.length < App.maxDownloads) {
+          App.downloadFiles();
+        }
       }
     });
   },
 
-  setAverages: function() {
-    // calculate average from this.measurements
-  },
-
-  finishSpeedTest: function() {
-    App.ui.showStartButton();
+  setAverageDown: function(milliseconds) {
+    App.averageDown = App.measurements.down.avg();
+    App.ui.updateAverageDown( App.averageSpeedDown() + ' Kb/s' );
   },
 
   // UI
@@ -89,12 +103,10 @@ var App = {
     },
 
     updateMeasurements: function() {
-      $('#measurements').html( App.measurements.toString() );
+      $('#measurements').html( App.measurements.down.toString() );
     }
   }
 
 };
 
 $('button#start').on('click', App.startSpeedtest);
-
-
