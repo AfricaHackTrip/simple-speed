@@ -169,12 +169,20 @@ var App = {
       var speed = chunkSizeInBits / timeInSeconds / 1024;
       // console.log([timestampDifference, timeInSeconds, speed]);
 
-      App.measurements[type].push(speed);
+      App.updateMeasurements(type, speed);
       App.setAverage(type);
     }
 
     App[type].lastBytesLoaded = bytesLoaded;
     App[type].lastTimestamp = timestamp;
+  },
+
+  updateMeasurements: function(type, speed) {
+    var measurements = App.measurements[type];
+    if (measurements.length >= 10) {
+      measurements.shift();
+    }
+    measurements.push(speed);
   },
 
   setAverage: function(type) {
