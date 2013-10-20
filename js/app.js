@@ -79,7 +79,7 @@ var App = {
 
   ui: {
     updateAverageDown: function(value) {
-      $('#left #top').html( value.toString() );
+      $('#down .kbps').html( value.toString() );
     },
 
     hideStartButton: function() {
@@ -88,10 +88,6 @@ var App = {
 
     showStartButton: function() {
       $('button#start').show();
-    },
-
-    updateMeasurements: function() {
-      $('#measurements').html( App.measurements.down.toString() );
     }
   }
 

@@ -7,35 +7,34 @@
 }
 
 body {
-	font-family: Helvetica;
+	font-family: Helvetica, sans-serif;
 	color: #fff;
 	background-color: #f9f9f9;
   text-align:  center;
+  text-rendering: optimizeLegibility
 }
 
 main {
   display:  block;
 }
 
-#wrapper {
-	width: 790px;
-	height: auto;
-	margin: auto;
+header, section {
+	width: 760px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-#header {
-	width: 790px;
-	height: 145px;
+header {
 	margin-top: 50px;
 	margin-bottom: 50px;
+	padding: 40px 0;
 	background-color: #34495e;
-	font-family: Palatino;
-	font-size: 56px;
+	font-family: Palatino, Georgia, serif;
+	font-size: 24px;
 	text-align: center;
-	padding-top: 40px;
 }
 
-#top {
+.kbps {
 	width: 373px;
 	height: 133px;
 	background-color: #16a085;
@@ -45,15 +44,15 @@ main {
 	text-align: center;
 }
 
-#left {
+#down {
 	float: left;
 }
 
-#right {
+#up {
 	float: right;
 }
 
-#caption {
+.caption {
 	width: 373px;
 	height: 70px;
 	background-color: #1abc9c;
