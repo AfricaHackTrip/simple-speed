@@ -97,9 +97,10 @@ var App = {
         console.log('testfile downloaded completely');
       },
       error: function(xhr, errorType, error) {
-        console.log('ERROR');
+        if (App.averageDown === 0) {
+          App.startDownload();
+        }
         console.log(errorType);
-        console.log(error);
         // show error
       },
       complete: function() {
@@ -151,9 +152,10 @@ var App = {
         console.log(data);
       },
       error: function(xhr, errorType, error) {
-        console.log('ERROR');
+        if (App.averageUp === 0) {
+          App.startUpload();
+        }
         console.log(errorType);
-        console.log(error);
         // show error
       },
       complete: function() {
@@ -177,9 +179,10 @@ var App = {
         timeInSeconds = Math.round(timestampDifference)/1000;
       }
       // Don't use unrealistic measurements
-      if (timestampDifference < 100 || timeInSeconds < 0.1 ) { return; }
+      if (timeInSeconds < 0.42 ) { return; }
 
       var speed = chunkSizeInBits / timeInSeconds / 1024;
+      console.log([timestampDifference, timeInSeconds, speed]);
 
       App.measurements.up.push(speed);
       App.setAverageUp();
