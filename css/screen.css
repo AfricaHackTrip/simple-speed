@@ -62,16 +62,16 @@ header {
 }
 
 button {
-	background-color: #e6eaeb;
-	font-family: Verdana;
-	color: #1abc9c;
 	margin: auto;
-	height: 70px;
-	width: 200px;
 	margin-top: 50px;
+	padding: 12px 24px;
+  border: none;
+	background-color: #e6eaeb;
+	color: #1abc9c;
+	font-family: Verdana;
 	text-align: center;
-	padding-top: 10px;
-	font-size: 36px;
+	font-size: 32px;
+  border-bottom: 3px solid #ccc;
 }
 
 #error {
