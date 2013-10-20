@@ -43,10 +43,10 @@ header {
   bottom: 0;
   left: 0;
   width: 0;
-}
-
-#progress {
-  width: 0;
+  -moz-transform: width 0.1s, left 0.1s;
+  -webkit-transform: width 0.1s, left 0.1s;
+  -o-transform: width 0.1s, left 0.1s;
+  transform: width 0.1s, left 0.1s;
 }
 
 #download, #upload {

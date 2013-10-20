@@ -110,7 +110,7 @@ var App = {
   },
 
   startUpload: function() {
-    App.ui.startProgressBar();
+    App.ui.startProgressBar({reverse: true});
     $.ajax({
       type: 'POST',
       url: 'https://simplespeed.herokuapp.com/upload',
@@ -195,16 +195,26 @@ var App = {
       $('button#start').show();
     },
 
-    startProgressBar: function() {
+    startProgressBar: function(options) {
       var width = 0;
+      var cssProperty;
+      var isReversed = options && options.reverse;
 
       doTimer(App.sampleTime, 20,
         function(steps) {
           width = width + (100 / steps);
-          $('#progress').css('width', width.toString()+'%');
+          if (isReversed) {
+            cssProperty = 'left';
+          } else {
+            cssProperty = 'width';
+          }
+          $('#progress').css(cssProperty, width.toString()+'%');
         },
         function() {
-          $('#progress').css('width', '0');
+          if (isReversed) {
+            $('#progress').css('left', '0');
+            $('#progress').css('width', '0');
+          }
         }
       );
     }
