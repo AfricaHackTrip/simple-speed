@@ -80,8 +80,7 @@ var App = {
   startSpeedtest: function() {
     App.clearResults();
     App.ui.hideStartButton();
-    // App.startDownload();
-    App.startUpload();
+    App.startDownload();
   },
 
   startDownload: function() {
