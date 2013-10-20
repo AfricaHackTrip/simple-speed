@@ -111,11 +111,19 @@ var App = {
   downloadProgress: function(ev) {
     var bytesLoaded = ev.loaded;
     var timestamp = ev.timeStamp;
+    var timeInSeconds;
 
     if (App.download.lastTimestamp !== null) {
       var chunkSizeInBits = (bytesLoaded - App.download.lastBytesLoaded) * 8;
       var timestampDifference = timestamp - App.download.lastTimestamp;
-      var timeInSeconds = Math.round(timestampDifference/1000)/1000;
+
+      // Some browsers use timestamps with a higher resolution
+      if (timestamp.toString().length === 16) {
+        timeInSeconds = Math.round(timestampDifference/1000)/1000;
+      } else {
+        timeInSeconds = Math.round(timestampDifference)/1000;
+      }
+
       var speed = chunkSizeInBits / timeInSeconds / 1024;
 
       App.measurements.down.push(speed);
@@ -161,7 +169,14 @@ var App = {
     if (App.upload.lastTimestamp !== null) {
       var chunkSizeInBits = (bytesLoaded - App.upload.lastBytesLoaded) * 8;
       var timestampDifference = timestamp - App.upload.lastTimestamp;
-      var timeInSeconds = Math.round(timestampDifference/1000)/1000;
+
+      // Some browsers use timestamps with a higher resolution
+      if (timestamp.toString().length === 16) {
+        timeInSeconds = Math.round(timestampDifference/1000)/1000;
+      } else {
+        timeInSeconds = Math.round(timestampDifference)/1000;
+      }
+
       var speed = chunkSizeInBits / timeInSeconds / 1024;
 
       App.measurements.up.push(speed);
