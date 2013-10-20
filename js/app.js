@@ -87,7 +87,7 @@ var App = {
     App.ui.startProgressBar();
     $.ajax({
       type: 'GET',
-      url: 'http://storage.5stage.com/galfert/public/shares/131017-0027-parov%20stelar%20-%20jimmys%20gang.mp3',
+      url: 'https://simplespeed.herokuapp.com/download',
       timeout: App.sampleTime,
       cache: false,
       beforeSend: function(xhr, settings) {
@@ -130,7 +130,7 @@ var App = {
     App.ui.startProgressBar();
     $.ajax({
       type: 'POST',
-      url: 'http://simplespeed.herokuapp.com/upload',
+      url: 'https://simplespeed.herokuapp.com/upload',
       timeout: App.sampleTime,
       cache: false,
       data: App.sampleString(),
