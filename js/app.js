@@ -84,7 +84,6 @@ var App = {
   },
 
   startDownload: function() {
-    console.log('startDownload')
     App.ui.startProgressBar();
     $.ajax({
       type: 'GET',
@@ -136,7 +135,6 @@ var App = {
   },
 
   startUpload: function() {
-    console.log('startUpload')
     App.ui.startProgressBar({reverse: true});
     $.ajax({
       type: 'POST',
@@ -224,7 +222,6 @@ var App = {
       var width = 0;
       var cssProperty;
       var isReversed = options && options.reverse;
-      console.log('isReversed', isReversed)
 
       doTimer(App.sampleTime, 20,
         function(steps) {
@@ -234,7 +231,6 @@ var App = {
           } else {
             cssProperty = 'width';
           }
-          console.log(cssProperty, width)
           $('#progress').css(cssProperty, width.toString()+'%');
         },
         function() {
