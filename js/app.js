@@ -47,28 +47,23 @@ var App = {
   },
   sampleTime: 10000, // in milliseconds
 
+  sampleString: function() {
+    var x = "1234567890";
+    var iterations = 12;
+    for (var i = 0; i < iterations; i++) {
+      x += x.concat(x);
+    }
+    return x;
+  },
+
   download: {
     lastBytesLoaded: 0,
     lastTimestamp: null
   },
 
-  downloadProgress: function(ev) {
-    var bytesLoaded = ev.loaded;
-    var timestamp = ev.timeStamp;
-
-    if (App.download.lastTimestamp !== null) {
-      var chunkSizeInBits = (bytesLoaded - App.download.lastBytesLoaded) * 8;
-      var timestampDifference = timestamp - App.download.lastTimestamp;
-      var timeInSeconds = Math.round(timestampDifference/1000)/1000;
-      var speed = chunkSizeInBits / timeInSeconds / 1024;
-
-      App.measurements.down.push(speed);
-
-      App.setAverageDown(speed);
-    }
-
-    App.download.lastBytesLoaded = bytesLoaded;
-    App.download.lastTimestamp = timestamp;
+  upload: {
+    lastBytesLoaded: 0,
+    lastTimestamp: null
   },
 
   clearResults: function() {
@@ -78,13 +73,18 @@ var App = {
     App.averageUp = 0;
     App.download.lastBytesLoaded = 0;
     App.download.lastTimestamp = null;
+    App.upload.lastBytesLoaded = 0;
+    App.upload.lastTimestamp = null;
   },
 
   startSpeedtest: function() {
     App.clearResults();
     App.ui.hideStartButton();
-    App.ui.startProgressBar();
+    App.startDownload();
+  },
 
+  startDownload: function() {
+    App.ui.startProgressBar();
     $.ajax({
       type: 'GET',
       url: 'http://storage.5stage.com/galfert/public/shares/131017-0027-parov%20stelar%20-%20jimmys%20gang.mp3',
@@ -103,14 +103,83 @@ var App = {
         // show error
       },
       complete: function() {
+        App.startUpload();
+      }
+    });
+  },
+
+  downloadProgress: function(ev) {
+    var bytesLoaded = ev.loaded;
+    var timestamp = ev.timeStamp;
+
+    if (App.download.lastTimestamp !== null) {
+      var chunkSizeInBits = (bytesLoaded - App.download.lastBytesLoaded) * 8;
+      var timestampDifference = timestamp - App.download.lastTimestamp;
+      var timeInSeconds = Math.round(timestampDifference/1000)/1000;
+      var speed = chunkSizeInBits / timeInSeconds / 1024;
+
+      App.measurements.down.push(speed);
+      App.setAverageDown();
+    }
+
+    App.download.lastBytesLoaded = bytesLoaded;
+    App.download.lastTimestamp = timestamp;
+  },
+
+  startUpload: function() {
+    App.ui.startProgressBar();
+    $.ajax({
+      type: 'POST',
+      url: 'http://simplespeed.herokuapp.com/upload',
+      timeout: App.sampleTime,
+      cache: false,
+      data: App.sampleString(),
+      beforeSend: function(xhr, settings) {
+        xhr.upload.addEventListener('progress', App.uploadProgress, false);
+      },
+      success: function(data, status, xhr){
+        console.log('testfile uploaded completely');
+        console.log(status);
+        console.log(data);
+      },
+      error: function(xhr, errorType, error) {
+        console.log('ERROR');
+        console.log(errorType);
+        console.log(error);
+        // show error
+      },
+      complete: function() {
         App.ui.showStartButton();
       }
     });
   },
 
-  setAverageDown: function(milliseconds) {
+  uploadProgress: function(ev) {
+    var bytesLoaded = ev.loaded;
+    var timestamp = ev.timeStamp;
+
+    if (App.upload.lastTimestamp !== null) {
+      var chunkSizeInBits = (bytesLoaded - App.upload.lastBytesLoaded) * 8;
+      var timestampDifference = timestamp - App.upload.lastTimestamp;
+      var timeInSeconds = Math.round(timestampDifference/1000)/1000;
+      var speed = chunkSizeInBits / timeInSeconds / 1024;
+
+      App.measurements.up.push(speed);
+      App.setAverageUp();
+    }
+
+    App.upload.lastBytesLoaded = bytesLoaded;
+    App.upload.lastTimestamp = timestamp;
+  },
+
+  setAverageDown: function() {
     App.averageDown = parseInt(App.measurements.down.avg());
     App.ui.updateAverageDown( App.averageDown + ' Kb/s' );
+  },
+
+  setAverageUp: function() {
+    App.averageUp = parseInt(App.measurements.up.avg());
+    App.ui.updateAverageUp( App.averageUp + ' Kb/s' );
   },
 
   // UI
@@ -118,6 +187,10 @@ var App = {
   ui: {
     updateAverageDown: function(value) {
       $('#down .kbps').html( value.toString() );
+    },
+
+    updateAverageUp: function(value) {
+      $('#up .kbps').html( value.toString() );
     },
 
     hideStartButton: function() {
@@ -131,7 +204,7 @@ var App = {
     startProgressBar: function() {
       var width = 0;
 
-      doTimer(10000, 20,
+      doTimer(App.sampleTime, 20,
         function(steps) {
           width = width + (100 / steps);
           $('#progress').css('width', width.toString()+'%');
