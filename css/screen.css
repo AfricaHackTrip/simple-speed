@@ -20,6 +20,7 @@ main {
 
 header, section {
 	width: 760px;
+	max-width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -34,14 +35,8 @@ header {
 	text-align: center;
 }
 
-.kbps {
-	width: 373px;
-	height: 133px;
-	background-color: #16a085;
-	font-family: Palatino;
-	font-size: 48px;
-	padding-top: 40px;
-	text-align: center;
+#down, #up {
+  width: 48.5%;
 }
 
 #down {
@@ -52,8 +47,16 @@ header {
 	float: right;
 }
 
+.kbps {
+	height: 133px;
+	background-color: #16a085;
+	font-family: Palatino;
+	font-size: 48px;
+	padding-top: 40px;
+	text-align: center;
+}
+
 .caption {
-	width: 373px;
 	height: 70px;
 	background-color: #1abc9c;
 	font-size: 24px;
@@ -85,4 +88,25 @@ button {
 	font-size: 36px;
 	text-align: center;
 	padding-top: 5px;
+}
+
+
+@media screen and (max-width: 600px) {
+  header {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+
+  #down, #up {
+    width: 50%;
+  }
+
+  #down {
+    border-right: 1px solid #1abc9c;
+  }
+
+  button {
+    margin-top: 40px;
+  }
 }
