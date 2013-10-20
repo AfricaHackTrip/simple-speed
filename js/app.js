@@ -18,6 +18,7 @@ var App = {
     down: [],
     up: []
   },
+  sampleTime: 10000, // in milliseconds
 
   download: {
     lastBytesLoaded: 0,
@@ -32,8 +33,7 @@ var App = {
       var chunkSizeInBits = (bytesLoaded - App.download.lastBytesLoaded) * 8;
       var timestampDifference = timestamp - App.download.lastTimestamp;
       var timeInSeconds = Math.round(timestampDifference/1000)/1000;
-      var kbps = chunkSizeInBits / timeInSeconds / 1024;
-      var speed = parseInt(kbps);
+      var speed = chunkSizeInBits / timeInSeconds / 1024;
 
       App.measurements.down.push(speed);
 
@@ -44,13 +44,23 @@ var App = {
     App.download.lastTimestamp = timestamp;
   },
 
+  clearResults: function() {
+    App.measurements.down = [];
+    App.measurements.up = [];
+    App.averageDown = 0;
+    App.averageUp = 0;
+    App.download.lastBytesLoaded = 0;
+    App.download.lastTimestamp = null;
+  },
+
   startSpeedtest: function() {
+    App.clearResults();
     App.ui.hideStartButton();
 
     $.ajax({
       type: 'GET',
       url: 'http://storage.5stage.com/galfert/public/shares/131017-0027-parov%20stelar%20-%20jimmys%20gang.mp3',
-      timeout: 10000,
+      timeout: App.sampleTime,
       cache: false,
       beforeSend: function(xhr, settings) {
         xhr.addEventListener('progress', App.downloadProgress, false);
