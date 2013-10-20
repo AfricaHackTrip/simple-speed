@@ -174,23 +174,23 @@ var App = {
 
   setAverageDown: function() {
     App.averageDown = parseInt(App.measurements.down.avg());
-    App.ui.updateAverageDown( App.averageDown + ' Kb/s' );
+    App.ui.updateAverageDown(App.averageDown);
   },
 
   setAverageUp: function() {
     App.averageUp = parseInt(App.measurements.up.avg());
-    App.ui.updateAverageUp( App.averageUp + ' Kb/s' );
+    App.ui.updateAverageUp(App.averageUp);
   },
 
   // UI
 
   ui: {
     updateAverageDown: function(value) {
-      $('#down .kbps').html( value.toString() );
+      $('#down .kbps .value').html( value.toString() );
     },
 
     updateAverageUp: function(value) {
-      $('#up .kbps').html( value.toString() );
+      $('#up .kbps .value').html( value.toString() );
     },
 
     hideStartButton: function() {

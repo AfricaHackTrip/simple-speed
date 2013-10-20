@@ -62,19 +62,21 @@ header {
 }
 
 .kbps {
-	height: 133px;
+	padding: 40px 0;
 	background-color: #16a085;
 	font-family: Palatino;
 	font-size: 48px;
-	padding-top: 40px;
 	text-align: center;
 }
 
+.unit {
+  font-size: 32px;
+}
+
 .caption {
-	height: 70px;
 	background-color: #1abc9c;
 	font-size: 24px;
-	padding-top: 20px;
+	padding: 20px 0;
 	text-align: center;
 }
 
@@ -118,6 +120,20 @@ button {
 
   #down {
     border-right: 1px solid #1abc9c;
+  }
+
+  .kbps {
+    padding: 32px 0;
+  }
+
+  .kbps .value {
+    display: block;
+  }
+
+  .kbps .unit {
+    padding-top: 8px;
+    display: block;
+    font-size: 24px;
   }
 
   button {
