@@ -79,6 +79,7 @@ header {
 button {
 	margin: auto;
 	margin-top: 50px;
+	margin-bottom: 50px;
 	padding: 12px 24px;
   border: none;
 	background: #e6eaeb;
