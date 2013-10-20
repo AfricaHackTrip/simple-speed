@@ -13,3 +13,7 @@ end
 post '/upload' do
   "Too fast, man"
 end
+
+options '/upload' do
+  ""
+end
