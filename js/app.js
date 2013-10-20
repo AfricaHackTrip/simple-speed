@@ -98,16 +98,16 @@ var App = {
       },
       success: function(data, status, xhr){
         console.log('testfile downloaded completely');
+        App.startUpload();
       },
       error: function(xhr, errorType, error) {
         if (App.averageDown === 0) {
           App.startDownload();
+        } else {
+          App.startUpload();
         }
         console.log(errorType);
         // show error
-      },
-      complete: function() {
-        App.startUpload();
       }
     });
   },
@@ -127,16 +127,16 @@ var App = {
         console.log('testfile uploaded completely');
         console.log(status);
         console.log(data);
+        App.ui.showStartButton();
       },
       error: function(xhr, errorType, error) {
         if (App.averageUp === 0) {
           App.startUpload();
+        } else {
+          App.ui.showStartButton();
         }
         console.log(errorType);
         // show error
-      },
-      complete: function() {
-        App.ui.showStartButton();
       }
     });
   },
