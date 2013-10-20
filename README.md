@@ -1,2 +1,2 @@
-Speedy Speed Test
-=================
+Simple Speed
+============
