@@ -1,14 +1,41 @@
+//
+// HELPER FUNCTIONS
+//
+
 Array.prototype.avg = function() {
   var av = 0;
   var cnt = 0;
   var len = this.length;
   for (var i = 0; i < len; i++) {
     var e = +this[i];
-    if(!e && this[i] !== 0 && this[i] !== '0') e--;
-    if (this[i] == e) {av += e; cnt++;}
+    if (!e && this[i] !== 0 && this[i] !== '0') { e--; }
+    if (this[i] === e) { av += e; cnt++; }
   }
   return av/cnt;
 };
+
+var doTimer = function(length, resolution, oninstance, oncomplete) {
+  var steps = (length / 100) * (resolution / 10),
+      speed = length / steps,
+      count = 0,
+      start = new Date().getTime();
+
+  function instance() {
+    if (count++ === steps) {
+      oncomplete(steps, count);
+    } else {
+      oninstance(steps, count);
+
+      var diff = (new Date().getTime() - start) - (count * speed);
+      window.setTimeout(instance, (speed - diff));
+    }
+  }
+  window.setTimeout(instance, speed);
+};
+
+//
+// APPLICATION
+//
 
 var App = {
 
@@ -56,6 +83,7 @@ var App = {
   startSpeedtest: function() {
     App.clearResults();
     App.ui.hideStartButton();
+    App.ui.startProgressBar();
 
     $.ajax({
       type: 'GET',
@@ -98,6 +126,20 @@ var App = {
 
     showStartButton: function() {
       $('button#start').show();
+    },
+
+    startProgressBar: function() {
+      var width = 0;
+
+      doTimer(10000, 20,
+        function(steps) {
+          width = width + (100 / steps);
+          $('#progress').css('width', width.toString()+'%');
+        },
+        function() {
+          $('#progress').css('width', '0');
+        }
+      );
     }
   }
 
