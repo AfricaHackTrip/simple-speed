@@ -42,8 +42,8 @@ var App = {
   averageDown: 0,
   averageUp: 0,
   measurements: {
-    down: [],
-    up: []
+    download: [],
+    upload: []
   },
   sampleTime: 10000, // in milliseconds
 
@@ -67,8 +67,8 @@ var App = {
   },
 
   clearResults: function() {
-    App.measurements.down = [];
-    App.measurements.up = [];
+    App.measurements.download = [];
+    App.measurements.upload = [];
     App.averageDown = 0;
     App.averageUp = 0;
     App.download.lastBytesLoaded = 0;
@@ -109,32 +109,6 @@ var App = {
     });
   },
 
-  downloadProgress: function(ev) {
-    var bytesLoaded = ev.loaded;
-    var timestamp = ev.timeStamp;
-    var timeInSeconds;
-
-    if (App.download.lastTimestamp !== null) {
-      var chunkSizeInBits = (bytesLoaded - App.download.lastBytesLoaded) * 8;
-      var timestampDifference = timestamp - App.download.lastTimestamp;
-
-      // Some browsers use timestamps with a higher resolution
-      if (timestamp.toString().length === 16) {
-        timeInSeconds = Math.round(timestampDifference/1000)/1000;
-      } else {
-        timeInSeconds = Math.round(timestampDifference)/1000;
-      }
-
-      var speed = chunkSizeInBits / timeInSeconds / 1024;
-
-      App.measurements.down.push(speed);
-      App.setAverageDown();
-    }
-
-    App.download.lastBytesLoaded = bytesLoaded;
-    App.download.lastTimestamp = timestamp;
-  },
-
   startUpload: function() {
     App.ui.startProgressBar();
     $.ajax({
@@ -164,13 +138,21 @@ var App = {
     });
   },
 
+  downloadProgress: function(ev) {
+    App.transferProgress(ev, 'download');
+  },
+
   uploadProgress: function(ev) {
+    App.transferProgress(ev, 'upload');
+  },
+
+  transferProgress: function(ev, type) {
     var bytesLoaded = ev.loaded;
     var timestamp = ev.timeStamp;
 
-    if (App.upload.lastTimestamp !== null) {
-      var chunkSizeInBits = (bytesLoaded - App.upload.lastBytesLoaded) * 8;
-      var timestampDifference = timestamp - App.upload.lastTimestamp;
+    if (App[type].lastTimestamp !== null) {
+      var chunkSizeInBits = (bytesLoaded - App[type].lastBytesLoaded) * 8;
+      var timestampDifference = timestamp - App[type].lastTimestamp;
 
       // Some browsers use timestamps with a higher resolution
       if (timestamp.toString().length === 16) {
@@ -182,35 +164,27 @@ var App = {
       if (timeInSeconds < 0.42 ) { return; }
 
       var speed = chunkSizeInBits / timeInSeconds / 1024;
-      console.log([timestampDifference, timeInSeconds, speed]);
+      // console.log([timestampDifference, timeInSeconds, speed]);
 
-      App.measurements.up.push(speed);
-      App.setAverageUp();
+      App.measurements[type].push(speed);
+      App.setAverage(type);
     }
 
-    App.upload.lastBytesLoaded = bytesLoaded;
-    App.upload.lastTimestamp = timestamp;
+    App[type].lastBytesLoaded = bytesLoaded;
+    App[type].lastTimestamp = timestamp;
   },
 
-  setAverageDown: function() {
-    App.averageDown = parseInt(App.measurements.down.avg());
-    App.ui.updateAverageDown(App.averageDown);
-  },
-
-  setAverageUp: function() {
-    App.averageUp = parseInt(App.measurements.up.avg());
-    App.ui.updateAverageUp(App.averageUp);
+  setAverage: function(type) {
+    var averageKey = (type === 'download' ? 'averageDown' : 'averageUp');
+    App[averageKey] = parseInt(App.measurements[type].avg());
+    App.ui.updateAverage(type, App[averageKey]);
   },
 
   // UI
 
   ui: {
-    updateAverageDown: function(value) {
-      $('#down .kbps .value').html( value.toString() );
-    },
-
-    updateAverageUp: function(value) {
-      $('#up .kbps .value').html( value.toString() );
+    updateAverage: function(type, value) {
+      $('#'+type+' .kbps .value').html( value.toString() );
     },
 
     hideStartButton: function() {
