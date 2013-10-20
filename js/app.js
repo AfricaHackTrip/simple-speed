@@ -180,7 +180,6 @@ var App = {
       if (timestampDifference < 100 || timeInSeconds < 0.1 ) { return; }
 
       var speed = chunkSizeInBits / timeInSeconds / 1024;
-      console.log([chunkSizeInBits, timestampDifference, timeInSeconds]);
 
       App.measurements.up.push(speed);
       App.setAverageUp();
