@@ -75,10 +75,13 @@ var App = {
     App.download.lastTimestamp = null;
     App.upload.lastBytesLoaded = 0;
     App.upload.lastTimestamp = null;
+    App.ui.updateAverage('download', 0);
+    App.ui.updateAverage('upload', 0);
   },
 
   startSpeedtest: function() {
     App.clearResults();
+    App.ui.clearProgressBars();
     App.ui.hideStartButton();
     App.startDownload();
   },
@@ -193,6 +196,10 @@ var App = {
 
     showStartButton: function() {
       $('button#start').show();
+    },
+
+    clearProgressBars: function() {
+      $('.progress').css('width', '100%');
     },
 
     startProgressBar: function(type) {
