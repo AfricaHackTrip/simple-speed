@@ -1,11 +1,8 @@
 require 'sinatra'
-require 'rack/cors'
+require 'sinatra/cross_origin'
 
-use Rack::Cors do
-  allow do
-    origins '*'
-    resource '*', :headers => :any, :methods => [:get, :post]
-  end
+configure do
+  enable :cross_origin
 end
 
 get '/download' do

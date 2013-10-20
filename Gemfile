@@ -1,3 +1,3 @@
 source :rubygems
 gem 'sinatra'
-gem 'rack-cors'
+gem 'sinatra-cross_origin'
