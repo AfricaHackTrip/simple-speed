@@ -50,7 +50,7 @@ var App = {
     $.ajax({
       type: 'GET',
       url: 'http://storage.5stage.com/galfert/public/shares/131017-0027-parov%20stelar%20-%20jimmys%20gang.mp3',
-      timeout: 5000,
+      timeout: 10000,
       cache: false,
       beforeSend: function(xhr, settings) {
         xhr.addEventListener('progress', App.downloadProgress, false);
