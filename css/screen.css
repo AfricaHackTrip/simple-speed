@@ -1,145 +1,124 @@
 *, *:before, *:after {
-  margin: 0;
-  padding: 0;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-
 body {
-	font-family: Helvetica, sans-serif;
-	color: #fff;
-	background-color: #f9f9f9;
-  text-align:  center;
-  text-rendering: optimizeLegibility
+    background-color: #eaedf1;
+    color: #FFFFFF;
+    font-family: Helvetica,sans-serif;
+    text-align: center;
+    text-rendering: optimizelegibility;
 }
-
 main {
-  display:  block;
-}
-
-header, section {
-	width: 760px;
-	max-width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-header {
-  position: relative;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	padding: 40px 0;
-	background-color: #34495e;
-	font-family: Palatino, Georgia, serif;
-	font-size: 24px;
-	text-align: center;
-}
-
-.progress {
-  position: absolute;
-  background: rgba(255,255,255,0.2);
-  top: 0;
-  bottom: 0;
-  right: 0;
-}
-
-#download, #upload {
-	background-color: #16a085;
-  width: 48.5%;
-}
-
-#download {
-	float: left;
-}
-
-#upload {
-	float: right;
-}
-
-.kbps {
-  position: relative;
-	padding: 40px 0;
-	font-family: Palatino;
-	font-size: 48px;
-	text-align: center;
-}
-
-.unit {
-  font-size: 32px;
-}
-
-.caption {
-  background: rgba(255,255,255,0.2);
-	font-size: 24px;
-	padding: 20px 0;
-	text-align: center;
-}
-
-button {
-	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	padding: 12px 24px;
-  border: none;
-	background: #e6eaeb;
-	color: #1abc9c;
-	font-family: Verdana;
-	text-align: center;
-	font-size: 32px;
-  border-bottom: 3px solid #ccc;
-}
-
-#error {
-	background: #d35400;
-	width: 50px;
-	height: 50px;
-	border-radius: 30px;
-	margin:  100px 100px 100px 100px;
-	color: #fff;
-	font-family: Helvetica;
-	font-size: 36px;
-	text-align: center;
-	padding-top: 5px;
-}
-
-
-@media screen and (max-width: 600px) {
-  header {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 20px;
-  }
-
-  #download, #upload {
-    width: 50%;
-  }
-
-  #download {
-    border-right: 1px solid #1abc9c;
-  }
-
-  .kbps {
-    padding: 24px 0;
-  }
-
-  .kbps .value {
     display: block;
-  }
-
-  .kbps .unit {
-    padding-top: 8px;
+}
+header, section {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    width: 540px;
+}
+header {
+    background-color: #34495E;
+    font-family: Palatino,Georgia,serif;
+    font-size: 37px;
+    margin-bottom: 0px;
+    margin-top: 50px;
+    padding: 22px 0;
+    position: relative;
+    text-align: center;
+}
+.progress {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.2);
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#download, #upload {
+    background-color: #16A085;
+    width: 49.9%;
+}
+#download {
+    float: left;
+}
+#upload {
+    float: right;
+}
+.kbps {
+    font-family: Palatino,georgia,serif;
+    font-size: 76px;
+    padding: 8px 0;
+    position: relative;
+    text-align: center;
+}
+.unit {
+    font-size: 20px;
+    font-family: Helvetica,sans-serif;
+}
+.caption {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.2);
+    font-size: 24px;
+    padding: 14px 0;
+    text-align: center;
+}
+button {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #fff;
+    border-color: -moz-use-text-color -moz-use-text-color #CCCCCC;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 2px;
+    color: #34495E;
+    font-family: Palatino,georgia,serif;
+    font-size: 25px;
+    margin: 50px auto;
+    padding: 8px 190px;
+    text-align: center;
+}
+#error {
+    background: none repeat scroll 0 0 #D35400;
+    border-radius: 30px 30px 30px 30px;
+    color: #FFFFFF;
+    font-family: Helvetica;
+    font-size: 36px;
+    height: 50px;
+    margin: 100px;
+    padding-top: 5px;
+    text-align: center;
+    width: 50px;
+}
+header {
+    font-size: 20px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+#download, #upload {
+    width: 50%;
+}
+#download {
+    border-right: 1px solid #1ABC9C;
+}
+.kbps {
+    padding: 24px 0;
+}
+.kbps .value {
+    display: block;
+}
+.kbps .unit {
     display: block;
     font-size: 24px;
-  }
-
-  .caption {
+    padding-top: 8px;
+}
+.caption {
     font-size: 20px;
-  }
-
-  button {
-    width: 80%;
+}
+button {
     font-size: 24px;
     margin-top: 24px;
-  }
+    width: 80%;
 }
