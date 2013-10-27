@@ -82,7 +82,7 @@ var App = {
   startSpeedtest: function() {
     App.clearResults();
     App.ui.clearProgressBars();
-    App.ui.hideStartButton();
+    App.ui.disableStartButton();
     App.startDownload();
   },
 
@@ -127,13 +127,13 @@ var App = {
         console.log('testfile uploaded completely');
         console.log(status);
         console.log(data);
-        App.ui.showStartButton();
+        App.ui.enableStartButton();
       },
       error: function(xhr, errorType, error) {
         if (App.averageUp === 0) {
           App.startUpload();
         } else {
-          App.ui.showStartButton();
+          App.ui.enableStartButton();
         }
         console.log(errorType);
         // show error
@@ -198,12 +198,14 @@ var App = {
       $('#'+type+' .kbps .value').html( value.toString() );
     },
 
-    hideStartButton: function() {
-      $('button#start').hide();
+    disableStartButton: function() {
+      $('button#start').attr('disabled', 'disabled');
+      $('button#start').html('Test running...');
     },
 
-    showStartButton: function() {
-      $('button#start').show();
+    enableStartButton: function() {
+      $('button#start').removeAttr('disabled');
+      $('button#start').html('Start test');
     },
 
     clearProgressBars: function() {

@@ -91,6 +91,10 @@ button {
   text-transform: uppercase;
 }
 
+button[disabled=disabled] {
+  color: #A7C1BC;
+}
+
 #error {
 	background: #d35400;
 	width: 50px;
