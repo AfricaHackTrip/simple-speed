@@ -19,7 +19,7 @@ main {
 }
 
 #container {
-	width: 680px;
+	width: 540px;
 	max-width: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -28,10 +28,10 @@ main {
 header {
   position: relative;
 	margin-top: 50px;
-	padding: 40px 0;
+	padding: 24px 0;
 	background-color: #34495e;
 	font-family: Palatino, Georgia, serif;
-	font-size: 24px;
+	font-size: 37px;
 	text-align: center;
 }
 
@@ -52,9 +52,9 @@ header {
 .kbps {
   background: #73c6b5;
   position: relative;
-	padding: 40px 0;
+	padding: 22px 0;
 	font-family: Palatino, Georgia, serif;
-	font-size: 48px;
+	font-size: 75px;
 	text-align: center;
 }
 
@@ -64,7 +64,9 @@ header {
 }
 
 .unit {
-  font-size: 32px;
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  margin-left: -15px;
 }
 
 .progress {
@@ -82,14 +84,14 @@ header {
   background: rgba(255,255,255,0.2);
   background: #44b39d;
 	font-size: 24px;
-	padding: 20px 0;
+	padding: 11px 0;
 	text-align: center;
 }
 
 button {
   width: 100%;
 	margin: auto;
-	padding: 18px 0;
+	padding: 11px 0;
   border: none;
   border-bottom: 2px solid #a7c1bc;
   background: none repeat scroll 0 0 #fff;
@@ -127,17 +129,18 @@ button[disabled=disabled] {
   }
 
   .kbps {
-    padding: 24px 0;
+    padding: 10px 0;
   }
 
   .kbps .value {
     display: block;
+    font-size: 40px;
   }
 
   .kbps .unit {
-    padding-top: 8px;
     display: block;
-    font-size: 24px;
+    font-size: 18px;
+    margin-left: 0px;
   }
 
   .caption {
