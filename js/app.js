@@ -209,19 +209,19 @@ var App = {
     },
 
     clearProgressBars: function() {
-      $('.progress').css('width', '100%');
+      $('.progress').css('width', '0');
     },
 
     startProgressBar: function(type) {
-      var width = 100;
+      var width = 0;
 
       doTimer(App.sampleTime, 20,
         function(steps) {
-          width = width - (100 / steps);
+          width = width + (100 / steps);
           $('#'+type+' .progress').css('width', width.toString()+'%');
         },
         function() {
-          $('#'+type+' .progress').css('width', '0');
+          $('#'+type+' .progress').css('width', '100%');
         }
       );
     }

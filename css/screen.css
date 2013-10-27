@@ -35,14 +35,6 @@ header {
 	text-align: center;
 }
 
-.progress {
-  position: absolute;
-  background: rgba(255,255,255,0.2);
-  top: 0;
-  bottom: 0;
-  right: 0;
-}
-
 #download, #upload {
 	background-color: #16a085;
     width: 50%;
@@ -58,6 +50,7 @@ header {
 }
 
 .kbps {
+  background: #73c6b5;
   position: relative;
 	padding: 40px 0;
 	font-family: Palatino, Georgia, serif;
@@ -65,12 +58,28 @@ header {
 	text-align: center;
 }
 
+.value, .unit {
+  position: relative;
+  z-index: 2;
+}
+
 .unit {
   font-size: 32px;
 }
 
+.progress {
+  position: absolute;
+  z-index: 1;
+  /* background: rgba(255,255,255,0.2); */
+  background: #16a085;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .caption {
   background: rgba(255,255,255,0.2);
+  background: #44b39d;
 	font-size: 24px;
 	padding: 20px 0;
 	text-align: center;
