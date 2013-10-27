@@ -229,4 +229,5 @@ var App = {
 
 };
 
+$('button').removeAttr('disabled');
 $('button#start').on('click', App.startSpeedtest);
