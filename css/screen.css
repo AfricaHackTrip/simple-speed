@@ -7,10 +7,10 @@
 }
 
 body {
-	font-family: Helvetica, sans-serif;
+  text-align: center;
+	background-color: #EAEDF1;
 	color: #fff;
-	background-color: #f9f9f9;
-  text-align:  center;
+	font-family: Helvetica, sans-serif;
   text-rendering: optimizeLegibility
 }
 
@@ -18,8 +18,8 @@ main {
   display:  block;
 }
 
-header, section {
-	width: 760px;
+#container {
+	width: 680px;
 	max-width: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -28,7 +28,6 @@ header, section {
 header {
   position: relative;
 	margin-top: 50px;
-	margin-bottom: 50px;
 	padding: 40px 0;
 	background-color: #34495e;
 	font-family: Palatino, Georgia, serif;
@@ -46,11 +45,12 @@ header {
 
 #download, #upload {
 	background-color: #16a085;
-  width: 48.5%;
+    width: 50%;
 }
 
 #download {
 	float: left;
+  border-right: 1px solid #fff;
 }
 
 #upload {
@@ -60,7 +60,7 @@ header {
 .kbps {
   position: relative;
 	padding: 40px 0;
-	font-family: Palatino;
+	font-family: Palatino, Georgia, serif;
 	font-size: 48px;
 	text-align: center;
 }
@@ -77,17 +77,18 @@ header {
 }
 
 button {
+  width: 100%;
 	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	padding: 12px 24px;
+	padding: 18px 0;
   border: none;
-	background: #e6eaeb;
-	color: #1abc9c;
-	font-family: Verdana;
+  border-bottom: 2px solid #a7c1bc;
+  background: none repeat scroll 0 0 #fff;
+  color: #34495E;
+	font-family: Palatino, Georgia, serif;
 	text-align: center;
-	font-size: 32px;
-  border-bottom: 3px solid #ccc;
+	font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 #error {
@@ -111,14 +112,6 @@ button {
     font-size: 20px;
   }
 
-  #download, #upload {
-    width: 50%;
-  }
-
-  #download {
-    border-right: 1px solid #1abc9c;
-  }
-
   .kbps {
     padding: 24px 0;
   }
@@ -139,7 +132,8 @@ button {
 
   button {
     width: 80%;
-    font-size: 24px;
+    padding: 12px 0;
+    font-size: 20px;
     margin-top: 24px;
   }
 }
