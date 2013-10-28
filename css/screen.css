@@ -53,7 +53,7 @@ header {
   background: #73c6b5;
   position: relative;
 	padding: 40px 0;
-	font-family: Palatino, Georgia, serif;
+	font-family: Helvetica, sans-serif;
 	font-size: 48px;
 	text-align: center;
 }
@@ -64,7 +64,7 @@ header {
 }
 
 .unit {
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .progress {
