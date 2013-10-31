@@ -49,7 +49,7 @@ var App = {
 
   sampleString: function() {
     var x = "1234567890";
-    var iterations = 12;
+    var iterations = 14;
     for (var i = 0; i < iterations; i++) {
       x += x.concat(x);
     }
