@@ -6,7 +6,7 @@ configure do
 end
 
 get '/download' do
-  sample_string 10000000
+  sample_string 40000000
 end
 
 post '/upload' do
