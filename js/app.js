@@ -80,6 +80,10 @@ var App = {
   },
 
   startSpeedtest: function() {
+    if (!window.navigator.onLine) {
+      alert('You seem to be offline. Please check your connection and try again.');
+      return false;
+    }
     App.clearResults();
     App.ui.clearProgressBars();
     App.ui.disableStartButton();
