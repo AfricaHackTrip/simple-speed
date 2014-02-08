@@ -94,7 +94,7 @@ var App = {
     App.ui.startProgressBar('download');
     $.ajax({
       type: 'GET',
-      url: 'http://d37tpvjhmax0j0.cloudfront.net/precise32.box',
+      url: 'https://d37tpvjhmax0j0.cloudfront.net/precise32.box',
       timeout: App.sampleTime,
       cache: false,
       beforeSend: function(xhr, settings) {
