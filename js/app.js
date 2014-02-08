@@ -45,7 +45,7 @@ var App = {
     download: [],
     upload: []
   },
-  sampleTime: 10000, // in milliseconds
+  sampleTime: 15000, // in milliseconds
 
   sampleString: function() {
     var x = "1234567890";
@@ -94,7 +94,7 @@ var App = {
     App.ui.startProgressBar('download');
     $.ajax({
       type: 'GET',
-      url: 'https://simplespeed.herokuapp.com/download',
+      url: 'http://d37tpvjhmax0j0.cloudfront.net/precise32.box',
       timeout: App.sampleTime,
       cache: false,
       beforeSend: function(xhr, settings) {
